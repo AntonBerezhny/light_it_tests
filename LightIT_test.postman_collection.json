@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "07636380-65e3-4557-989b-01f61b905825",
+		"name": "LightIT_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a21797a-21cf-4a9e-8cb4-ca1af9e369aa",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test responce keys\", function(){\r",
+							"    pm.response.to.have.jsonBody('token')\r",
+							"        .and.to.have.jsonBody('user.username')\r",
+							"        .and.to.have.jsonBody('user.email')\r",
+							"\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test email value\", function(){\r",
+							"    var jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData.user.email).to.eql('antonberezhnoi@gmail.com')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Anton\", \"email\": \"antonberezhnoi@gmail.com\", \"password\": \"1234_poc\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://light-it-03.tk/api/profiles/login/",
+					"protocol": "http",
+					"host": [
+						"light-it-03",
+						"tk"
+					],
+					"path": [
+						"api",
+						"profiles",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Anton1\", \r\n    \"email\": \"antonberezhnoi+1lit@gmail.com\", \r\n    \"password1\": \"1234_poc\",\r\n    \"password2\": \"1234_poc\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/profiles/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"profiles",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_and_order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc65f9d2-87f5-4374-b930-6bc30bd38853",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test responce keys\", function(){\r",
+							"    pm.response.to.have.jsonBody('name')\r",
+							"        .and.to.have.jsonBody('owner')\r",
+							"        .and.to.have.jsonBody('quantity')\r",
+							"        .and.to.have.jsonBody('cost')\r",
+							"        .and.to.have.jsonBody('status')\r",
+							"        .and.to.have.jsonBody('bid_type')\r",
+							"\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Test email value\", function(){\r",
+							"    var jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData.name).to.eql('Apple')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2NzAsInVzZXJuYW1lIjoiQW50b24iLCJleHAiOjE1OTY5Njg3MzIsImVtYWlsIjoiYW50b25iZXJlemhub2lAZ21haWwuY29tIiwib3JpZ19pYXQiOjE1OTY5NTc5MzJ9.3978DXQp4FCMl61lgDHsisdPz7LOIpFnnMCFSnYyN5Q",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":330,\"name\":\"Apple\",\"owner\":670,\"quantity\":100,\"cost\":\"10.000\",\"status\":1,\"bid_type\":2}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/orders/orders/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"orders",
+						"orders",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
